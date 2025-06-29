@@ -1,4 +1,7 @@
-FROM python:3.11-slim
+FROM python:3.13-slim
+
+ENV POETRY_VIRTUALENVS_CREATE=false
+ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
 WORKDIR /app
 
@@ -8,7 +11,6 @@ COPY backend/pyproject.toml backend/poetry.lock* ./
 RUN poetry install --no-root --no-interaction
 
 COPY backend/ ./backend/
-COPY public/ ./backend/public/
 
 WORKDIR /app/backend
 
