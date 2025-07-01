@@ -12,6 +12,6 @@ runs:
       run: npm ci
       shell: bash
 
-    - name: Build with Rollup
-      run: npm run compile
-      shell: bash
+#    - name: Build with Rollup
+#      run: npm run compile
+#      shell: bash

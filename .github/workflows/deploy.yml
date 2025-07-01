@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - uses: ./.github/actions/playwright
-        with:
-          retention-days: 30
+#      - uses: ./.github/actions/playwright
+#        with:
+#          retention-days: 30
       - uses: ./.github/actions/image
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
