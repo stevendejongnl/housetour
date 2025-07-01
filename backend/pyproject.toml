@@ -6,9 +6,12 @@ authors = [
     {name = "Steven de jong 🍟",email = "steven@steven-dejong.nl"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
-    "Flask (>=3.1.1,<4.0.0)"
+    "Flask (>=3.1.1,<4.0.0)",
+    "segno (>=1.6.6,<2.0.0)",
+    "pypdf (>=5.7.0,<6.0.0)",
+    "pillow (>=11.2.1,<12.0.0)"
 ]
 
 
