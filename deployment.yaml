@@ -24,7 +24,7 @@ spec:
       - name: madebysteven
         image: ghcr.io/stevendejongnl/housetour:latest
         ports:
-        - containerPort: 80
+        - containerPort: 5000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -47,7 +47,7 @@ spec:
       - name: housetour
         image: ghcr.io/stevendejongnl/housetour:latest
         ports:
-        - containerPort: 80
+        - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
