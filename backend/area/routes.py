@@ -2,6 +2,7 @@
 from flask import Blueprint, render_template, current_app
 import os
 import frontmatter
+import markdown
 
 area_blueprint = Blueprint('area', __name__, template_folder='templates', url_prefix='/area')
 
@@ -36,7 +37,6 @@ def area_dynamic(area_name):
     md_html = ''
     try:
         post = frontmatter.load(md_path)
-        import markdown
         md_html = markdown.markdown(post.content, extensions=['extra', 'nl2br'])
         current_app.logger.info(md_html)
     except Exception as e:
