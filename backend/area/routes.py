@@ -23,9 +23,11 @@ def get_area_metadata(area_name):
         with open(md_path, encoding="utf-8") as f:
             content = f.read()
         if content.startswith('---'):
-            end = content.find('---', 3)
+            end = content.find('\n---', 3)
+            if end == -1:
+                end = content.find('\r---', 3)
             if end != -1:
-                meta_yaml = yaml.safe_load(content[3:end])
+                meta_yaml = yaml.safe_load(content[3:end].strip())
                 if isinstance(meta_yaml, dict):
                     meta.update(meta_yaml)
     except Exception as e:
