@@ -42,8 +42,8 @@ def create_area_qr_code(area, base_url="https://housetour.madebysteven.nl"):
         scale=scale,
         border=0,
         kind='png',
-        dark=text_color,
-        light=background_color,
+        dark=TEXT_COLOR,
+        light=BACKGROUND_COLOR,
     )
     print(f"Generated QR code for area: {area} at {data}.")
 
