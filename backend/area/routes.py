@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 import os
 import yaml
+import markdown
 from .markdown_utils import load_area_markdown
 
 area_blueprint = Blueprint('area', __name__, template_folder='templates', url_prefix='/area')
@@ -48,9 +49,9 @@ def area_dynamic(area_name):
             raw_md = f.read()
     except Exception as e:
         print(f"Kon markdown niet lezen: {e}")
-    md_html = load_area_markdown(area_name)
+    md_html = ''
     if raw_md:
-        md_html = load_area_markdown_from_text(strip_yaml_frontmatter(raw_md))
+        md_html = markdown.markdown(strip_yaml_frontmatter(raw_md), extensions=['extra', 'nl2br'])
     meta = get_area_metadata(area_name)
     data = {
         'title': meta.get('title', area_name),
