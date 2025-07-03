@@ -12,7 +12,7 @@ def index():
     area_list = [
         {
             'url': f'/area/{area}',
-            'name': get_area_title(area)
+            'name': get_area_metadata(area).get('title', area),
         }
         for area in get_available_areas()
     ]
