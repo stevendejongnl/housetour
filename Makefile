@@ -25,4 +25,5 @@ qr:
 	-v $(PWD)/qr_codes:/app/qr_codes \
 	-v $(PWD)/backend/qr_codes.py:/app/backend/qr_codes.py \
 	-v $(PWD)/backend/area:/app/backend/area \
-	housetour poetry run python qr_codes.py wifi=$(wifi) area=$(area) areas=$(areas)
+	-v $(PWD)/data:/app/data \
+	housetour poetry run python qr_codes.py wifi=$(wifi)

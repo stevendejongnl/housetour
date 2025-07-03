@@ -118,39 +118,38 @@ if __name__ == "__main__":
     arguments = sys.argv[1:] if len(sys.argv) > 1 else []
     named_arguments = {arg.split('=')[0]: arg.split('=')[1] for arg in arguments if '=' in arg}
 
-    area = named_arguments.get('area', None)
-    areas = named_arguments.get('areas', None)
     wifi = named_arguments.get('wifi', None)
-
 
     if wifi:
         create_wifi_qr_code()
 
-    if areas:
-        areas_list = areas.split(',')
-        for area in areas_list:
-            create_area_qr_code(area.strip())
+    areas_dir = os.path.join(os.path.dirname(__file__), '../data/areas')
+    areas_list = [
+        os.path.splitext(f)[0]
+        for f in os.listdir(areas_dir)
+        if f.endswith('.md') and not f.startswith('.')
+    ]
 
-            area_module_name = f'{area.strip().replace("-", "_").lower()}'
+    if areas_list:
+        for area in areas_list:
+            area = area.strip()
+            create_area_qr_code(area)
+
+            area_module_name = f'{area.replace("-", "_").lower()}'
             try:
                 area_module = importlib.import_module(f"area.{area_module_name}")
             except ImportError:
-                print(f"Module for area '{area.strip()}' not found. Skipping.")
+                print(f"Module for area '{area}' not found. Skipping.")
                 continue
 
             area_data = area_module.__dict__.get(area_module_name, None)
             area_data = area_data() if callable(area_data) else area_data
 
             generate_area_page(
-                area=area.strip(),
+                area=area,
                 area_name=area_data.get('name', "NJope"),
                 ssid=os.getenv("WIFI_SSID"),
                 password=os.getenv("WIFI_PASSWORD"),
-                output_pdf_path=f'/app/qr_codes/{area.strip()}.pdf',
+                output_pdf_path=f'/app/qr_codes/{area}.pdf',
             )
         exit(0)
-
-    if area:
-        print(f"Generating page for area: {area}")
-
-
