@@ -135,19 +135,24 @@ if __name__ == "__main__":
             area = area.strip()
             create_area_qr_code(area)
 
-            area_module_name = f'{area.replace("-", "_").lower()}'
+            md_path = os.path.join(areas_dir, f"{area}.md")
+            area_name = area  # fallback
             try:
-                area_module = importlib.import_module(f"area.{area_module_name}")
-            except ImportError:
-                print(f"Module for area '{area}' not found. Skipping.")
-                continue
-
-            area_data = area_module.__dict__.get(area_module_name, None)
-            area_data = area_data() if callable(area_data) else area_data
+                with open(md_path, encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if line:
+                            if line.startswith('#'):
+                                area_name = line.lstrip('#').strip()
+                            else:
+                                area_name = line
+                            break
+            except Exception as e:
+                print(f"Kon area-naam niet lezen uit {md_path}: {e}")
 
             generate_area_page(
                 area=area,
-                area_name=area_data.get('name', "NJope"),
+                area_name=area_name,
                 ssid=os.getenv("WIFI_SSID"),
                 password=os.getenv("WIFI_PASSWORD"),
                 output_pdf_path=f'/app/qr_codes/{area}.pdf',
