@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="area-content">
+    {% if title %}<h2>{{ title }}</h2>{% endif %}
+    {% if description %}<p>{{ description }}</p>{% endif %}
+    <div class="markdown-body">
+        {{ markdown_content|safe }}
+    </div>
+</div>
+{% endblock %}
