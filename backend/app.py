@@ -19,6 +19,6 @@ def index():
     return render_template(
         'index.html',
         title='House Tour',
-        description='Explore the different areas of the house.',
+        description='Ontdek de verschillende ruimtes van het huis.',
         areas=area_list
     )

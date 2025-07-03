@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 import os
+import yaml
 from .markdown_utils import load_area_markdown
 
 area_blueprint = Blueprint('area', __name__, template_folder='templates', url_prefix='/area')
@@ -14,16 +15,34 @@ def get_available_areas():
     area_files = [f for f in os.listdir(AREAS_DIR) if f.endswith('.md')]
     return [f[:-3] for f in area_files]
 
+def get_area_metadata(area_name):
+    md_path = os.path.join(AREAS_DIR, f"{area_name}.md")
+    meta = {'title': area_name.replace('_', ' ').replace('-', ' ').title(), 'description': ''}
+    try:
+        with open(md_path, encoding="utf-8") as f:
+            content = f.read()
+        if content.startswith('---'):
+            end = content.find('---', 3)
+            if end != -1:
+                meta_yaml = yaml.safe_load(content[3:end])
+                if isinstance(meta_yaml, dict):
+                    meta.update(meta_yaml)
+    except Exception as e:
+        print(f"Kon metadata niet lezen uit {md_path}: {e}")
+    return meta
+
 def get_area_title(area_name):
-    return area_name.replace('_', ' ').replace('-', ' ').title()
+    return get_area_metadata(area_name).get('title')
 
 @area_blueprint.route('/<area_name>')
 def area_dynamic(area_name):
     if area_name not in get_available_areas():
         return render_template('404.html'), 404
     md_html = load_area_markdown(area_name)
+    meta = get_area_metadata(area_name)
     data = {
-        'title': get_area_title(area_name),
+        'title': meta.get('title', area_name),
+        'description': meta.get('description', ''),
         'area_name': area_name,
         'markdown_content': md_html if md_html else '<p><em>Geen content beschikbaar voor dit gebied.</em></p>'
     }
