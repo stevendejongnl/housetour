@@ -56,7 +56,7 @@ def load_font(font_path, size):
         return ImageFont.load_default()
 
 
-def draw_text(draw, text, position, font, fill=text_color):
+def draw_text(draw, text, position, font, fill=TEXT_COLOR):
     draw.text(position, text, fill=fill, font=font)
 
 
