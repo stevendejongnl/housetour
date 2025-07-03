@@ -2,9 +2,9 @@
 
 {% block body %}
 <ul>
-    {% for url in area_urls %}
+    {% for area in areas %}
     <li>
-        <a href="{{ url }}">{{ url }}</a>
+        <a href="{{ area.url }}">{{ area.name }}</a>
     </li>
     {% endfor %}
 </ul>
