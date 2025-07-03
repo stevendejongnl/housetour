@@ -1,10 +1,9 @@
-import importlib
 import os
 import sys
+
 import segno
 from PIL import Image, ImageDraw, ImageFont
 from pypdf import PdfWriter
-
 
 TEXT_COLOR = '#345C64'
 BACKGROUND_COLOR = '#ffE9C7'
@@ -60,13 +59,14 @@ def draw_text(draw, text, position, font, fill=TEXT_COLOR):
     draw.text(position, text, fill=fill, font=font)
 
 
-def tab(total_tabs:float=1, tab_size=4):
+def tab(total_tabs: float = 1, tab_size=4):
     tabs = tab_size * total_tabs
 
     return ' ' * int(tabs)
 
 
-def generate_area_page(area, area_name, ssid, password, output_pdf_path, background_path="/app/qr_codes/background.png"):
+def generate_area_page(area, area_name, ssid, password, output_pdf_path,
+                       background_path="/app/qr_codes/background.png"):
     bg = Image.open(background_path).convert("RGB")
     draw = ImageDraw.Draw(bg)
 
@@ -113,6 +113,7 @@ def generate_area_page(area, area_name, ssid, password, output_pdf_path, backgro
 
     bg.save(output_pdf_path, "PDF")
     print(f"PDF gegenereerd: {output_pdf_path}")
+
 
 if __name__ == "__main__":
     arguments = sys.argv[1:] if len(sys.argv) > 1 else []

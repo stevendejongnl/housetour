@@ -1,8 +1,8 @@
-
-from flask import Blueprint, render_template, current_app
 import os
+
 import frontmatter
 import markdown
+from flask import Blueprint, render_template, current_app
 
 area_blueprint = Blueprint('area', __name__, template_folder='templates', url_prefix='/area')
 
@@ -11,6 +11,7 @@ AREAS_DIR = os.path.join(
     'data',
     'areas',
 )
+
 
 def get_available_areas():
     area_files = [f for f in os.listdir(AREAS_DIR) if f.endswith('.md')]

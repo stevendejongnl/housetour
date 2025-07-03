@@ -1,6 +1,8 @@
-from flask import Flask, render_template
-from area.routes import area_blueprint, get_available_areas, get_area_metadata
 import logging
+
+from flask import Flask, render_template
+
+from area.routes import area_blueprint, get_available_areas, get_area_metadata
 
 __version__ = '0.1.0'
 app = Flask(__name__)
@@ -17,6 +19,7 @@ logging.basicConfig(
 app.logger.setLevel(logging.INFO)
 
 app.register_blueprint(area_blueprint)
+
 
 @app.route('/')
 def index():
