@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from area.routes import area_blueprint, get_available_areas, get_area_title
+from area.routes import area_blueprint, get_available_areas
 
 __version__ = '0.1.0'
 app = Flask(__name__)
