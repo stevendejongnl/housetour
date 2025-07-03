@@ -15,11 +15,30 @@ AREAS_DIR = os.path.join(
 
 def get_available_areas():
     area_files = [f for f in os.listdir(AREAS_DIR) if f.endswith('.md')]
-    return [f[:-3] for f in area_files]
+    areas = []
+    for f in area_files:
+        name = f[:-3]
+        if '-' in name and name[:2].isdigit() and name[2] == '-':
+            name = name[3:]
+        areas.append(name)
+    return areas
 
 
 def get_area_metadata(area_name):
-    md_path = os.path.join(AREAS_DIR, f"{area_name}.md")
+    md_file = None
+    for f in os.listdir(AREAS_DIR):
+        if f.endswith('.md'):
+            name = f[:-3]
+            if '-' in name and name[:2].isdigit() and name[2] == '-':
+                clean_name = name[3:]
+            else:
+                clean_name = name
+            if clean_name == area_name:
+                md_file = f
+                break
+    if not md_file:
+        return {'title': area_name.replace('_', ' ').replace('-', ' ').title(), 'description': ''}
+    md_path = os.path.join(AREAS_DIR, md_file)
     meta = {'title': area_name.replace('_', ' ').replace('-', ' ').title(), 'description': ''}
     try:
         post = frontmatter.load(md_path)
