@@ -17,6 +17,7 @@ WORKDIR /app
 RUN pip install --no-cache-dir poetry
 
 COPY backend/ ./backend/
+COPY data/ ./data/
 
 WORKDIR /app/backend
 
