@@ -1,3 +1,3 @@
-# Attic
+# Zolder
 
-Beschrijving van de zolder.
+De zolder is een verrassende ruimte: hier bergen we onze spullen op en soms logeert er iemand. Een plek vol herinneringen!

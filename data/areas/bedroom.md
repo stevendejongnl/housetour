@@ -1,3 +1,3 @@
-# Bedroom
+# Slaapkamer
 
-Beschrijving van de slaapkamer.
+De slaapkamer is onze plek om tot rust te komen. Met een fijn bed en zachte kleuren is dit de ideale ruimte om te ontspannen.
