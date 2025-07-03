@@ -1,7 +1,7 @@
 
 ---
-title: Scotts slaapkamer
-description: Een stoere en gezellige kamer voor Scott.
+Title: Scott's slaapkamer
+Description: Een stoere en gezellige kamer voor Scott.
 ---
 
 
