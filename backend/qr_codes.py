@@ -6,8 +6,8 @@ from PIL import Image, ImageDraw, ImageFont
 from pypdf import PdfWriter
 
 
-text_color = '#345C64'
-background_color = '#ffE9C7'
+TEXT_COLOR = '#345C64'
+BACKGROUND_COLOR = '#ffE9C7'
 
 
 def create_wifi_qr_code():
@@ -26,8 +26,8 @@ def create_wifi_qr_code():
         scale=scale,
         border=0,
         kind='png',
-        dark=text_color,
-        light=background_color,
+        dark=TEXT_COLOR,
+        light=BACKGROUND_COLOR,
     )
     print(f"Generated WiFi QR code for SSID: {ssid}.")
 
@@ -152,5 +152,5 @@ if __name__ == "__main__":
 
     if area:
         print(f"Generating page for area: {area}")
-        # generate_area_page(area)
+
 
