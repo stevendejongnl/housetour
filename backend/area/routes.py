@@ -31,19 +31,30 @@ def get_area_metadata(area_name):
         print(f"Kon metadata niet lezen uit {md_path}: {e}")
     return meta
 
-def get_area_title(area_name):
-    return get_area_metadata(area_name).get('title')
+def strip_yaml_frontmatter(md_text):
+    if md_text.startswith('---'):
+        end = md_text.find('---', 3)
+        if end != -1:
+            return md_text[end+3:].lstrip('\r\n')
+    return md_text
 
 @area_blueprint.route('/<area_name>')
 def area_dynamic(area_name):
     if area_name not in get_available_areas():
         return render_template('404.html'), 404
+    raw_md = ''
+    try:
+        with open(os.path.join(AREAS_DIR, f"{area_name}.md"), encoding="utf-8") as f:
+            raw_md = f.read()
+    except Exception as e:
+        print(f"Kon markdown niet lezen: {e}")
     md_html = load_area_markdown(area_name)
+    if raw_md:
+        md_html = load_area_markdown_from_text(strip_yaml_frontmatter(raw_md))
     meta = get_area_metadata(area_name)
     data = {
         'title': meta.get('title', area_name),
         'description': meta.get('description', ''),
-        'area_name': area_name,
         'markdown_content': md_html if md_html else '<p><em>Geen content beschikbaar voor dit gebied.</em></p>'
     }
     return render_template('area.html', **data)
