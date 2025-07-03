@@ -1,9 +1,20 @@
 from flask import Flask, render_template
-from area.routes import area_blueprint, get_available_areas
+from area.routes import area_blueprint, get_available_areas, get_area_metadata
+import logging
 
 __version__ = '0.1.0'
 app = Flask(__name__)
 app.secret_key = 'mega-secret-housetour'
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ]
+)
+
+app.logger.setLevel(logging.INFO)
 
 app.register_blueprint(area_blueprint)
 

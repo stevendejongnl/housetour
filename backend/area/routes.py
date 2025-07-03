@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, current_app
 import os
 import yaml
 import markdown
-from .markdown_utils import load_area_markdown
 
 area_blueprint = Blueprint('area', __name__, template_folder='templates', url_prefix='/area')
 
@@ -31,7 +30,7 @@ def get_area_metadata(area_name):
                 if isinstance(meta_yaml, dict):
                     meta.update(meta_yaml)
     except Exception as e:
-        print(f"Kon metadata niet lezen uit {md_path}: {e}")
+        current_app.logger.info(f"Kon metadata niet lezen uit {md_path}: {e}")
     return meta
 
 def strip_yaml_frontmatter(md_text):
@@ -50,11 +49,13 @@ def area_dynamic(area_name):
         with open(os.path.join(AREAS_DIR, f"{area_name}.md"), encoding="utf-8") as f:
             raw_md = f.read()
     except Exception as e:
-        print(f"Kon markdown niet lezen: {e}")
+        current_app.logger.info(f"Kon markdown niet lezen: {e}")
     md_html = ''
     if raw_md:
         md_html = markdown.markdown(strip_yaml_frontmatter(raw_md), extensions=['extra', 'nl2br'])
+        current_app.logger.info(md_html)
     meta = get_area_metadata(area_name)
+    current_app.logger.info(meta)
     data = {
         'title': meta.get('title', area_name),
         'description': meta.get('description', ''),

@@ -1,7 +1,10 @@
 .PHONY: build copy-backend-files run
 
-run: build copy-backend-files
-	docker compose up
+run: copy-backend-files
+	docker compose up \
+		--build \
+		--force-recreate \
+		--remove-orphans
 
 build:
 	docker buildx build \
