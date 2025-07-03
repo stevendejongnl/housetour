@@ -6,45 +6,20 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: housetour-blue
+  name: housetour
   namespace: madebysteven
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: housetour
-      version: blue
   template:
     metadata:
       labels:
         app: housetour
-        version: blue
     spec:
       containers:
       - name: madebysteven
-        image: ghcr.io/stevendejongnl/housetour:latest
-        ports:
-        - containerPort: 5000
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: housetour-green
-  namespace: madebysteven
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: housetour
-      version: green
-  template:
-    metadata:
-      labels:
-        app: housetour
-        version: green
-    spec:
-      containers:
-      - name: housetour
         image: ghcr.io/stevendejongnl/housetour:latest
         ports:
         - containerPort: 5000
@@ -57,7 +32,6 @@ metadata:
 spec:
   selector:
     app: housetour
-    version: blue  # Change to 'green' to switch traffic
   ports:
     - protocol: TCP
       port: 80
