@@ -1,0 +1,29 @@
+body {
+    background: #f8f9fa;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.header {
+    background: #343a40;
+    color: #fff;
+    padding: 2rem 0 1rem 0;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 2rem;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
