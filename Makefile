@@ -1,6 +1,6 @@
-.PHONY: build copy-backend-files run
+.PHONY: run build add remove qr
 
-run: copy-backend-files
+run:
 	docker compose up \
 		--build \
 		--force-recreate \
@@ -8,8 +8,9 @@ run: copy-backend-files
 
 build:
 	docker buildx build \
-	--progress plain \
-	-t housetour .
+		--no-cache \
+		--progress plain \
+		--tag housetour .
 
 add: build
 	docker run --name housetour-add-tmp housetour poetry add $(package)
@@ -17,9 +18,11 @@ add: build
 	docker cp housetour-add-tmp:/app/backend/poetry.lock ./backend/poetry.lock
 	docker rm housetour-add-tmp
 
-copy-backend-files:
-	docker cp housetour:/app/backend/pyproject.toml ./backend/pyproject.toml
-	docker cp housetour:/app/backend/poetry.lock ./backend/poetry.lock
+remove: build
+	docker run --name housetour-add-tmp housetour poetry remove $(package)
+	docker cp housetour-add-tmp:/app/backend/pyproject.toml ./backend/pyproject.toml
+	docker cp housetour-add-tmp:/app/backend/poetry.lock ./backend/poetry.lock
+	docker rm housetour-add-tmp
 
 qr:
 	docker run -it --rm \
