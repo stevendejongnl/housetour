@@ -75,7 +75,7 @@ def get_area_content(area_name: str) -> str:
             content = f.read()
             post = frontmatter.loads(content)
             md_content = post.content if isinstance(post.content, str) else ''
-            html_content = markdown.markdown(md_content)
+            html_content = markdown.markdown(md_content, extensions=['nl2br'])
             return html_content
     except Exception as e:
         current_app.logger.info(f"Could not read content from {md_path}: {e}")
