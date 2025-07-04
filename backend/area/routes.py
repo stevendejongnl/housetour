@@ -15,10 +15,12 @@ AREAS_DIR = os.path.join(
 
 def get_available_areas() -> list[str]:
     area_files = [file for file in os.listdir(AREAS_DIR) if file.endswith('.md')]
+
     def extract_number(file):
         if '-' in file and file[:2].isdigit() and file[2] == '-':
             return int(file[:2])
         return float('inf')
+
     area_files.sort(key=extract_number)
     areas = []
     for file in area_files:
@@ -82,6 +84,15 @@ def get_area_content(area_name: str) -> str:
         return ''
 
 
+def get_area_images(area_name: str) -> list[str]:
+    static_dir = os.path.join(current_app.static_folder, 'areas')
+    return [
+        f'/static/areas/{img}'
+        for img in os.listdir(static_dir)
+        if img.startswith(area_name) and img.endswith(('.jpg', '.jpeg', '.png', '.gif'))
+    ]
+
+
 @area_blueprint.route('/<area_name>')
 def area_dynamic(area_name: str) -> str:
     if area_name not in get_available_areas():
@@ -95,6 +106,7 @@ def area_dynamic(area_name: str) -> str:
     data = {
         'title': meta.get('title', area_name),
         'description': meta.get('description', ''),
-        'markdown_content': content
+        'markdown_content': content,
+        'images': get_area_images(area_name),
     }
     return render_template('area.html', **data)

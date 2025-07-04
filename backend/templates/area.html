@@ -4,6 +4,15 @@
 <div class="area-content">
     <div class="markdown-body">
         {{ markdown_content|safe }}
+
+        <h3>The befores..</h3>
     </div>
+    <ul class="image-grid">
+    {% for image in images %}
+        <li>
+            <img src="{{ image }}" alt="{{ title }} - {{ loop.index0 }}">
+        </li>
+    {% endfor %}
+    </ul>
 </div>
 {% endblock %}
