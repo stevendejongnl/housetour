@@ -7,4 +7,5 @@ description: De plek om tot rust te komen.
 
 ## Een plek om te dromen
 
-De slaapkamer is onze plek om tot rust te komen. Met een fijn bed en zachte kleuren is dit de ideale ruimte om te ontspannen.
+In de slaapkamer horen wij s'ochtends de vogeltjes fluiten.
+Lijkt soms net een vakantiehuisje.
