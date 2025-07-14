@@ -24,10 +24,7 @@ QUIZ_QUESTIONS = [
     # ...meer vragen...
 ]
 
-MONGO_URI = os.environ.get(
-    "MONGO_URI",
-    "mongodb+srv://stevendejong:<db_password>@housetour.ge5znlo.mongodb.net/?retryWrites=true&w=majority&appName=Housetour"
-)
+MONGO_URI = os.environ.get("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["housetour"]
 quiz_results = db["quiz_results"]
