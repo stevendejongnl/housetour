@@ -30,6 +30,11 @@ QUIZ_QUESTIONS = [
         'choices': ['Wit', 'Grijs', 'Beige', 'Blauw'],
         'answer': 'Beige'
     },
+    {
+        'question': 'Waar heeft Steven door de muur heen geschroefd?',
+        'choices': ['Woonkamer', 'Badkamer', 'WC', 'Scott zijn kamer'],
+        'answer': 'WC'
+    },
 ]
 
 MONGO_URI = os.environ.get("MONGO_URI")
