@@ -39,6 +39,7 @@ def start_quiz():
         session['quiz_progress'] = 0
         session['quiz_score'] = 0
         session['quiz_order'] = random.sample(range(len(QUIZ_QUESTIONS)), len(QUIZ_QUESTIONS))
+        session['quiz_answers'] = []  # lijst voor antwoorden
         return redirect(url_for('quiz.question'))
     return render_template('quiz_start.html', error=None)
 
@@ -63,6 +64,15 @@ def question():
         session['quiz_last_answer'] = selected
         session['quiz_last_question'] = question['question']
         session['quiz_last_correct_answer'] = correct
+        # Antwoord opslaan in lijst
+        answers = session.get('quiz_answers', [])
+        answers.append({
+            'question': question['question'],
+            'selected': selected,
+            'correct': correct,
+            'is_correct': is_correct
+        })
+        session['quiz_answers'] = answers
         return redirect(url_for('quiz.feedback'))
 
     return render_template('quiz_question.html', question=question, progress=progress+1, total=len(order), name=session.get('quiz_name', ''))
@@ -87,11 +97,13 @@ def result():
     score = session.get('quiz_score', 0)
     total = len(session.get('quiz_order', QUIZ_QUESTIONS))
     name = session.get('quiz_name', '')
-    # Sla resultaat op in MongoDB
+    answers = session.get('quiz_answers', [])
+    # Sla resultaat en antwoorden op in MongoDB
     if name:
         quiz_results.insert_one({
             "name": name,
             "score": score,
-            "total": total
+            "total": total,
+            "answers": answers
         })
     return render_template('quiz_result.html', score=score, total=total, name=name)
