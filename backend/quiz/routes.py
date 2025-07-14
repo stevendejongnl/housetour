@@ -7,21 +7,29 @@ quiz_blueprint = Blueprint('quiz', __name__, template_folder='../templates', url
 
 QUIZ_QUESTIONS = [
     {
-        'question': 'Wat is de hoofdstad van Nederland?',
-        'choices': ['Amsterdam', 'Rotterdam', 'Utrecht', 'Den Haag'],
-        'answer': 'Amsterdam'
+        'question': 'Hoeveel dagen heeft Steven gebruik kunnen maken van het kleine kamertje boven als kantoor?',
+        'choices': ['6 dagen', '36 dagen', '60 dagen', '686 dagen'],
+        'answer': '60 dagen'
     },
     {
-        'question': 'Welke kleur heeft de Nederlandse vlag NIET?',
-        'choices': ['Rood', 'Blauw', 'Geel', 'Wit'],
-        'answer': 'Geel'
+        'question': 'Waar kun je de hand afdruk van Scott in de muur vinden?',
+        'choices': ['Eetkamer', 'WC', 'Scott\'s slaapkamer', 'In de achtertuin'],
+        'answer': 'Eetkamer'
     },
     {
-        'question': 'Hoeveel provincies heeft Nederland?',
-        'choices': ['10', '12', '11', '9'],
-        'answer': '12'
+        'question': 'Hoeveel lampen zijn er in de woonkamer?',
+        'choices': ['4', '5', '6', '9'],
+        'answer': '5'
     },
-    # ...meer vragen...
+    {
+        'question': 'Waar had Steven beter zijn best kunnen doen met klussen?',
+        'open_question_answer': False
+    },
+    {
+        'question': 'Wat is de kleur van de muur in de woonkamer?',
+        'choices': ['Wit', 'Grijs', 'Beige', 'Blauw'],
+        'answer': 'Beige'
+    },
 ]
 
 MONGO_URI = os.environ.get("MONGO_URI")
