@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="area-content" style="max-width:500px;margin:0 auto;text-align:center;">
+    <h2>Start de House Tour Quiz</h2>
+    <form method="post">
+        <div style="margin-bottom:1.5rem;">
+            <label for="name" style="font-size:1.1rem;">Je naam:</label><br>
+            <input type="text" id="name" name="name" required style="padding:0.5rem;font-size:1.1rem;width:80%;margin-top:0.5rem;">
+        </div>
+        {% if error %}
+        <div style="color:#ef476f;margin-bottom:1rem;">{{ error }}</div>
+        {% endif %}
+        <button type="submit" class="notfound-link">Start quiz</button>
+    </form>
+</div>
+{% endblock %}

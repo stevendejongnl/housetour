@@ -10,3 +10,5 @@ tsconfig.tsbuildinfo
 
 qr_codes/*
 !qr_codes/background.png
+
+compose.override.yml
