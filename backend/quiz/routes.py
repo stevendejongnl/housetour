@@ -23,7 +23,8 @@ QUIZ_QUESTIONS = [
     },
     {
         'question': 'Waar had Steven beter zijn best kunnen doen met klussen?',
-        'open_question_answer': False
+        'open': True,
+        'answer': False
     },
     {
         'question': 'Wat is de kleur van de muur in de woonkamer?',
@@ -52,7 +53,7 @@ def start_quiz():
         session['quiz_progress'] = 0
         session['quiz_score'] = 0
         session['quiz_order'] = random.sample(range(len(QUIZ_QUESTIONS)), len(QUIZ_QUESTIONS))
-        session['quiz_answers'] = []  # lijst voor antwoorden
+        session['quiz_answers'] = []
         return redirect(url_for('quiz.question'))
     return render_template('quiz_start.html', error=None)
 
@@ -66,18 +67,24 @@ def question():
     q_idx = order[progress]
     question = QUIZ_QUESTIONS[q_idx]
 
+
     if request.method == 'POST':
-        selected = request.form.get('choice')
-        correct = question['answer']
+        if question.get('open'):
+            selected = request.form.get('open_answer', '').strip()
+        if not question.get('open'):
+            selected = request.form.get('choice')
+
+        correct = question.get('answer')
         is_correct = selected == correct
-        session['quiz_progress'] = progress + 1
+
         if is_correct:
             session['quiz_score'] = session.get('quiz_score', 0) + 1
+
+        session['quiz_progress'] = progress + 1
         session['quiz_last_correct'] = is_correct
         session['quiz_last_answer'] = selected
         session['quiz_last_question'] = question['question']
         session['quiz_last_correct_answer'] = correct
-        # Antwoord opslaan in lijst
         answers = session.get('quiz_answers', [])
         answers.append({
             'question': question['question'],
@@ -111,7 +118,6 @@ def result():
     total = len(session.get('quiz_order', QUIZ_QUESTIONS))
     name = session.get('quiz_name', '')
     answers = session.get('quiz_answers', [])
-    # Sla resultaat en antwoorden op in MongoDB
     if name:
         quiz_results.insert_one({
             "name": name,
