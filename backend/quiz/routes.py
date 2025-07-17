@@ -8,8 +8,8 @@ quiz_blueprint = Blueprint('quiz', __name__, template_folder='../templates', url
 QUIZ_QUESTIONS = [
     {
         'question': 'Hoeveel dagen heeft Steven gebruik kunnen maken van het kleine kamertje boven als kantoor?',
-        'choices': ['6 dagen', '36 dagen', '60 dagen', '686 dagen'],
-        'answer': '60 dagen'
+        'choices': ['6 dagen', '36 dagen', '60 dagen', '123 dagen'],
+        'answer': '123 dagen'
     },
     {
         'question': 'Waar kun je de hand afdruk van Scott in de muur vinden?',
@@ -28,8 +28,8 @@ QUIZ_QUESTIONS = [
     },
     {
         'question': 'Wat is de kleur van de muur in de woonkamer?',
-        'choices': ['Wit', 'Grijs', 'Beige', 'Blauw'],
-        'answer': 'Beige'
+        'choices': ['Sandy Beach', 'Serene Sandstone', 'Intuitive', 'Sand Drift'],
+        'answer': 'Intuitive'
     },
     {
         'question': 'Waar heeft Steven door de muur heen geschroefd?',
