@@ -37,38 +37,38 @@ jobs:
             ghcr.io/${{ steps.repo-name.outputs.lowercase }}:latest
             ghcr.io/${{ steps.repo-name.outputs.lowercase }}:${{ github.sha }}
 
-  deploy:
-    needs: build-and-push-image
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v4
-      with:
-        version: 'latest'
-
-    - name: Configure kubectl for Rancher
-      run: |
-        mkdir -p ~/.kube
-        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
-        chmod 600 ~/.kube/config
-        # Skip TLS verification for self-signed certificates
-        kubectl config set-cluster $(kubectl config current-context) --insecure-skip-tls-verify=true
-
-    - name: Deploy to Kubernetes
-      run: |
-        # Update deployment with unique image tag based on commit SHA
-        sed -i "s|ghcr.io/stevendejongnl/housetour:.*|ghcr.io/stevendejongnl/housetour:${{ github.sha }}|" deployment.yaml
-        # Apply deployment
-        kubectl apply --validate=false -f deployment.yaml 2>/dev/null || kubectl apply --validate=false -f deployment.yaml
-        kubectl rollout status deployment/housetour -n madebysteven --timeout=300s
-
-    - name: Verify deployment
-      run: |
-        kubectl get pods -n madebysteven -l app=housetour
-        kubectl get svc -n madebysteven housetour-app
-        kubectl get ingress -n madebysteven housetour-nginx
+  # deploy:
+  #   needs: build-and-push-image
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'
+  #
+  #   steps:
+  #   - name: Checkout repository
+  #     uses: actions/checkout@v4
+  #
+  #   - name: Set up kubectl
+  #     uses: azure/setup-kubectl@v4
+  #     with:
+  #       version: 'latest'
+  #
+  #   - name: Configure kubectl for Rancher
+  #     run: |
+  #       mkdir -p ~/.kube
+  #       echo "${{ secrets.KUBECONFIG }}" | base64 --decode > ~/.kube/config
+  #       chmod 600 ~/.kube/config
+  #       # Skip TLS verification for self-signed certificates
+  #       kubectl config set-cluster $(kubectl config current-context) --insecure-skip-tls-verify=true
+  #
+  #   - name: Deploy to Kubernetes
+  #     run: |
+  #       # Update deployment with unique image tag based on commit SHA
+  #       sed -i "s|ghcr.io/stevendejongnl/housetour:.*|ghcr.io/stevendejongnl/housetour:${{ github.sha }}|" deployment.yaml
+  #       # Apply deployment
+  #       kubectl apply --validate=false -f deployment.yaml 2>/dev/null || kubectl apply --validate=false -f deployment.yaml
+  #       kubectl rollout status deployment/housetour -n madebysteven --timeout=300s
+  #
+  #   - name: Verify deployment
+  #     run: |
+  #       kubectl get pods -n madebysteven -l app=housetour
+  #       kubectl get svc -n madebysteven housetour-app
+  #       kubectl get ingress -n madebysteven housetour-nginx
