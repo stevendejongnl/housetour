@@ -43,6 +43,8 @@ client = MongoClient(MONGO_URI)
 db = client["housetour"]
 quiz_results = db["quiz_results"]
 
+current_app.logger.info(f"Connected to MongoDB at {MONGO_URI}, database: {db.name}, collection: {quiz_results.name}")
+
 @quiz_blueprint.route('/start', methods=['GET', 'POST'])
 def start_quiz():
     if request.method == 'POST':
