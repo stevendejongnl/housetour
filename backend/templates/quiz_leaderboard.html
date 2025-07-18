@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <div class="area-content" style="max-width:700px;margin:0 auto;">
-    <a href="{{ url_for('quiz.leaderboard_edit_auth') }}" class="notfound-link" style="float:right;margin-bottom:1rem;">Bewerk ranglijst</a>
+    <a href="{{ url_for('quiz.leaderboard_edit_auth') }}" class="simple-link" style="float:right;margin-bottom:1rem;">Bewerk ranglijst</a>
     <table style="width:100%;border-collapse:collapse;">
         <thead>
             <tr>
@@ -26,7 +26,7 @@
                     <ul style="font-size:0.95em;margin:0.5em 0 0 0;padding:0;list-style:none;">
                     {% for answer in result.answers %}
                         {% if answer.is_open and answer.selected %}
-                            <li><em>{{ answer.question }}</em>: <strong>{{ answer.selected }}</strong></li>
+                            <li><em>{{ answer.question }}</em>:<br><strong>{{ answer.selected }}</strong><hr></li>
                         {% endif %}
                     {% endfor %}
                     </ul>

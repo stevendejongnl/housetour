@@ -5,8 +5,8 @@
         <label for="password">Wachtwoord:</label><br>
         <input type="number" id="password" name="password" required style="width:100%;margin-bottom:1rem;">
         {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
-        <button type="submit" class="notfound-link">Inloggen</button>
+        <button type="submit" class="simple-link">Inloggen</button>
     </form>
-    <a href="{{ url_for('quiz.leaderboard') }}" class="notfound-link" style="margin-top:2rem;">Terug naar ranglijst</a>
+    <a href="{{ url_for('quiz.leaderboard') }}" class="simple-link" style="margin-top:2rem;">Terug naar ranglijst</a>
 </div>
 {% endblock %}
