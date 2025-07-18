@@ -4,6 +4,10 @@
     <h2>Quizvraag {{ progress }} van {{ total }}</h2>
     <form method="post">
         <p style="font-size:1.2rem;">{{ question.question }}</p>
+        {% if question.description %}
+        <p style="font-size:0.95rem;margin:0.5em 0;">{{ question.description }}</p>
+        {% endif %}
+
         {% if question.open %}
         <div style="margin-bottom:1rem;">
             <label for="open_answer">Jouw antwoord:</label><br>

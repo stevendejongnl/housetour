@@ -73,6 +73,17 @@ QUIZ_QUESTIONS = [
         'question': 'Wat is het gekste dat ooit in de koelkast heeft gelegen?',
         'choices': ['Een watermeloen', 'Schaapje', 'Een pizza', 'Een paar sokken'],
         'answer': 'Schaapje'
+    },
+    {
+        'question': 'Hoeveel bomen hebben wij per saldo verwijderd in de tuinen?',
+        'description': 'Nieuwe bomen is plus, omgehakt is min.',
+        'choices': ['-3', '0', '3', '4'],
+        'answer': '0'
+    },
+    {
+        'question': 'Over hoeveel dagen denk je dat Scott officieel grote broer wordt?',
+        'open': True,
+        'no_score': True
     }
 ]
 
@@ -113,7 +124,10 @@ def question():
             selected = request.form.get('choice')
 
         correct = question.get('answer')
-        is_correct = selected == correct
+        if question.get('no_score'):
+            is_correct = None
+        else:
+            is_correct = selected == correct
 
         if is_correct:
             session['quiz_score'] = session.get('quiz_score', 0) + 1
@@ -128,7 +142,8 @@ def question():
             'question': question['question'],
             'selected': selected,
             'correct': correct,
-            'is_correct': is_correct
+            'is_correct': is_correct,
+            'no_score': question.get('no_score', False)
         })
         session['quiz_answers'] = answers
         return redirect(url_for('quiz.feedback'))
@@ -146,11 +161,15 @@ def feedback():
     correct_answer = session.get('quiz_last_correct_answer', '')
     question_obj = next((q for q in QUIZ_QUESTIONS if q['question'] == last_question), None)
     show_correct = True
-    if question_obj and question_obj.get('open') and question_obj.get('answer') is False:
+    is_correct = session.get('quiz_last_correct', False)
+    if question_obj and question_obj.get('no_score'):
+        is_correct = None
+        show_correct = False
+    elif question_obj and question_obj.get('open') and question_obj.get('answer') is False:
         show_correct = False
     return render_template(
         'quiz_feedback.html',
-        is_correct=session.get('quiz_last_correct', False),
+        is_correct=is_correct,
         selected=last_answer,
         question=last_question,
         correct_answer=correct_answer if show_correct else '',

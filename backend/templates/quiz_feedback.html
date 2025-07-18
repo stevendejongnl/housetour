@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
 <div class="area-content" style="max-width:500px;margin:0 auto;text-align:center;">
+    {% if is_correct is not none %}
     <h2>
         {% if is_correct %}
             ✅ Goed!
@@ -8,9 +9,10 @@
             ❌ Fout!
         {% endif %}
     </h2>
+    {% endif %}
     <p><strong>Vraag:</strong> {{ question }}</p>
     <p><strong>Jouw antwoord:</strong> {{ selected }}</p>
-    {% if not is_correct and correct_answer %}
+    {% if is_correct is not none and not is_correct and correct_answer %}
     <p><strong>Goed antwoord:</strong> {{ correct_answer }}</p>
     {% endif %}
     <a href="{{ next_url }}" class="notfound-link" style="margin-top:2rem;">Volgende vraag</a>
