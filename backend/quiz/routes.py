@@ -108,12 +108,19 @@ def feedback():
     total = len(session.get('quiz_order', QUIZ_QUESTIONS))
     if progress > total:
         return redirect(url_for('quiz.result'))
+    last_question = session.get('quiz_last_question', '')
+    last_answer = session.get('quiz_last_answer', '')
+    correct_answer = session.get('quiz_last_correct_answer', '')
+    question_obj = next((q for q in QUIZ_QUESTIONS if q['question'] == last_question), None)
+    show_correct = True
+    if question_obj and question_obj.get('open') and question_obj.get('answer') is False:
+        show_correct = False
     return render_template(
         'quiz_feedback.html',
         is_correct=session.get('quiz_last_correct', False),
-        selected=session.get('quiz_last_answer', ''),
-        question=session.get('quiz_last_question', ''),
-        correct_answer=session.get('quiz_last_correct_answer', ''),
+        selected=last_answer,
+        question=last_question,
+        correct_answer=correct_answer if show_correct else '',
         next_url=url_for('quiz.question') if progress < total else url_for('quiz.result')
     )
 

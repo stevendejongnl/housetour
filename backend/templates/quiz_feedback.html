@@ -10,7 +10,7 @@
     </h2>
     <p><strong>Vraag:</strong> {{ question }}</p>
     <p><strong>Jouw antwoord:</strong> {{ selected }}</p>
-    {% if not is_correct %}
+    {% if not is_correct and correct_answer %}
     <p><strong>Goed antwoord:</strong> {{ correct_answer }}</p>
     {% endif %}
     <a href="{{ next_url }}" class="notfound-link" style="margin-top:2rem;">Volgende vraag</a>
