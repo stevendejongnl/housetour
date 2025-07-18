@@ -15,7 +15,14 @@
             <tr>
                 <td style="padding:8px;vertical-align:top;">
                     {{ result.name }}
-                    {% if result.answers %}
+                </td>
+                <td style="text-align:right;padding:8px;vertical-align:top;">{{ result.score }}</td>
+                <td style="text-align:right;padding:8px;vertical-align:top;">{{ result.total }}</td>
+            </tr>
+
+            {% if result.answers %}
+            <tr>
+                <td colspan="3">
                         <ul style="font-size:0.95em;margin:0.5em 0 0 0;padding:0;list-style:none;">
                         {% for answer in result.answers %}
                             {% if answer.is_open and answer.selected %}
@@ -25,9 +32,8 @@
                         </ul>
                     {% endif %}
                 </td>
-                <td style="text-align:right;padding:8px;vertical-align:top;">{{ result.score }}</td>
-                <td style="text-align:right;padding:8px;vertical-align:top;">{{ result.total }}</td>
             </tr>
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

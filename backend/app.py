@@ -1,5 +1,6 @@
 import logging
 
+from datetime import datetime
 from flask import Flask, render_template
 
 from area.routes import area_blueprint, get_available_areas, get_area_metadata
@@ -21,6 +22,11 @@ app.logger.setLevel(logging.INFO)
 
 app.register_blueprint(area_blueprint)
 app.register_blueprint(quiz_blueprint)
+
+
+@app.context_processor
+def inject_now():
+    return {'now': int(datetime.now().timestamp())}
 
 
 @app.route('/')
