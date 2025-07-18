@@ -140,3 +140,9 @@ def result():
             "answers": answers
         })
     return render_template('quiz_result.html', score=score, total=total, name=name)
+
+@quiz_blueprint.route('/leaderboard')
+def leaderboard():
+    results = list(quiz_results.find({}, {'_id': 0, 'name': 1, 'score': 1, 'total': 1}))
+    results.sort(key=lambda r: r.get('score', 0), reverse=True)
+    return render_template('quiz_leaderboard.html', results=results)
