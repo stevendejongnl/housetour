@@ -133,6 +133,15 @@ body {
     position: relative;
 }
 
+.header-links {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+}
+
 .header-link {
     left: 2rem;
     top: 2rem;

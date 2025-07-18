@@ -13,11 +13,13 @@
 
 <body>
     <div class="header">
-        <a href="/" class="header-link" style="grid-area: home;">&#127968; Home</a>
-        <a href="{{ url_for('quiz.start_quiz') }}" class="header-link" style="grid-area: quiz;">📝 Quiz</a>
-        <a href="{{ url_for('quiz.leaderboard') }}" class="header-link" style="grid-area: score;">🏆 Scores</a>
-        <h1 style="grid-area: title;">{{ title }}</h1>
-        {% if description %}<p style="grid-area: sub;">{{ description }}</p>{% endif %}
+        <div class="header-links">
+            <a href="/" class="header-link">&#127968; Home</a>
+            <a href="{{ url_for('quiz.start_quiz') }}" class="header-link">📝 Quiz</a>
+            <a href="{{ url_for('quiz.leaderboard') }}" class="header-link">🏆 Ranglijst</a>
+        </div>
+        <h1>{{ title }}</h1>
+        {% if description %}<p>{{ description }}</p>{% endif %}
     </div>
     <div class="container">
         {% block body %}{% endblock %}
