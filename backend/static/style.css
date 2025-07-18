@@ -116,6 +116,12 @@ body {
 }
 
 .header {
+    display: grid;
+    grid-template-areas:
+        "home  quiz  score"
+        "title title title"
+        "sub   sub   sub  ";
+    gap: 10px;
     background: linear-gradient(90deg, #ef476f 0%, #ffd166 100%);
     color: #fff;
     padding: 2.5rem 0 1.5rem;
@@ -127,8 +133,7 @@ body {
     position: relative;
 }
 
-.header-home-link {
-    position: absolute;
+.header-link {
     left: 2rem;
     top: 2rem;
     color: #fff;
@@ -142,7 +147,7 @@ body {
     transition: background 0.2s, color 0.2s;
 }
 
-.header-home-link:hover {
+.header-link:hover {
     background: #ffd166;
     color: #ef476f;
 }
