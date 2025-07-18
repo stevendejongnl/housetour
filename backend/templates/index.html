@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block body %}
-<ul>
+<ul class="button-list">
     {% for area in areas %}
-    <li>
+    <li class="button-item">
         <a href="{{ area.url }}">{{ area.name }}</a>
     </li>
     {% endfor %}

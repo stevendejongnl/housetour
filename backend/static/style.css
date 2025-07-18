@@ -176,7 +176,7 @@ body {
     position: relative;
 }
 
-ul {
+ul.button-list {
     list-style: none;
     padding: 0;
     margin: 0 0 2rem;
@@ -186,7 +186,7 @@ ul {
     justify-content: center;
 }
 
-li {
+li.button-item {
     background: linear-gradient(135deg, #ffd166 0%, #ef476f 100%);
     border-radius: 18px;
     box-shadow: 0 2px 8px rgba(239, 71, 111, 0.13);
@@ -197,7 +197,7 @@ li {
     text-align: center;
 }
 
-li:hover {
+li.button-item:hover {
     transform: scale(1.07) rotate(-2deg);
     box-shadow: 0 6px 24px rgba(239, 71, 111, 0.18);
 }
