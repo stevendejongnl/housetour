@@ -89,8 +89,8 @@ def get_area_content(area_name: str) -> str:
 
 
 def is_exact_image(img: str, area_name: str) -> bool:
-        basename = img.split('-')[0] if '-' in img else img.split('.')[0]
-        return basename == area_name
+    img_name = img.rsplit('.', 1)[0]
+    return img_name == area_name or img_name.startswith(area_name + '-')
     
 
 def get_area_images(area_name: str) -> list[str]:

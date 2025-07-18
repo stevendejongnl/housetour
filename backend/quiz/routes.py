@@ -40,6 +40,37 @@ QUIZ_QUESTIONS = [
         'question': 'Hoeveel kurken hebben Anja En Steven verzameld en bewaard door de jaren heen?',
         'choices': ['86', '154', '173', '243'],
         'answer': '173'
+    },
+    {
+        'question': 'Welke kamer is het beste geschikt voor een indoor skelterrace?',
+        'choices': ['Woonkamer', 'Gang', 'Keuken + Eetkamer', 'Slaapkamer'],
+        'answer': 'Keuken + Eetkamer'
+    },
+    {
+        'question': 'Wat zou je het liefst in de tuin willen tegenkomen?',
+        'choices': ['Een trampoline', 'Een zwembad', 'Een pizza-oven', 'Een geheime hut'],
+        'answer': 'Een geheime hut'
+    },
+    {
+        'question': 'Wie heeft ooit per ongeluk een muur roze geverfd?',
+        'choices': ['Steven', 'Anja', 'Scott', 'Niemand'],
+        'answer': 'Niemand'
+    },
+    {
+        'question': 'Wat is het grappigste geluid dat je in huis kunt horen?',
+        'choices': ['Scott die lacht', 'De deurbel', 'De stofzuiger', 'Steven die zingt'],
+        'answer': 'Steven die zingt'
+    },
+    {
+        'question': 'Wat is het meest onverwachte dat je in de badkamer kunt vinden?',
+        'choices': ['Een rubberen eend', 'Een plant', 'Een boek', 'Een radio'],
+        'answer': 'Een boek'
+    }
+    ,
+    {
+        'question': 'Wat is het gekste dat ooit in de koelkast heeft gelegen?',
+        'choices': ['Een watermeloen', 'Schaapje', 'Een pizza', 'Een paar sokken'],
+        'answer': 'Schaapje'
     }
 ]
 
