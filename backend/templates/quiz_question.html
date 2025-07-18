@@ -4,14 +4,21 @@
     <h2>Quizvraag {{ progress }} van {{ total }}</h2>
     <form method="post">
         <p style="font-size:1.2rem;">{{ question.question }}</p>
-        {% for choice in question.choices %}
+        {% if question.open %}
         <div style="margin-bottom:1rem;">
-            <label>
-                <input type="radio" name="choice" value="{{ choice }}" required>
-                {{ choice }}
-            </label>
+            <label for="open_answer">Jouw antwoord:</label><br>
+            <input type="text" id="open_answer" name="open_answer" style="width:100%;" required>
         </div>
-        {% endfor %}
+        {% else %}
+            {% for choice in question.choices %}
+            <div style="margin-bottom:1rem;">
+                <label>
+                    <input type="radio" name="choice" value="{{ choice }}" required>
+                    {{ choice }}
+                </label>
+            </div>
+            {% endfor %}
+        {% endif %}
         <button type="submit" class="notfound-link">Antwoord</button>
     </form>
 </div>
