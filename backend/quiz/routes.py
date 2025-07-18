@@ -104,7 +104,8 @@ def start_quiz():
         session['quiz_order'] = random.sample(range(len(QUIZ_QUESTIONS)), len(QUIZ_QUESTIONS))
         session['quiz_answers'] = []
         return redirect(url_for('quiz.question'))
-    return render_template('quiz_start.html', error=None)
+
+    return render_template('quiz_start.html', error=None, title="Start de House Tour Quiz")
 
 @quiz_blueprint.route('/question', methods=['GET', 'POST'])
 def question():
@@ -148,7 +149,14 @@ def question():
         session['quiz_answers'] = answers
         return redirect(url_for('quiz.feedback'))
 
-    return render_template('quiz_question.html', question=question, progress=progress+1, total=len(order), name=session.get('quiz_name', ''))
+    return render_template(
+        'quiz_question.html',
+        question=question,
+        progress=progress+1,
+        total=len(order),
+        name=session.get('quiz_name', ''),
+        title="Quizvraag"
+    )
 
 @quiz_blueprint.route('/feedback')
 def feedback():
@@ -173,7 +181,8 @@ def feedback():
         selected=last_answer,
         question=last_question,
         correct_answer=correct_answer if show_correct else '',
-        next_url=url_for('quiz.question') if progress < total else url_for('quiz.result')
+        next_url=url_for('quiz.question') if progress < total else url_for('quiz.result'),
+        title="Quiz Feedback"
     )
 
 @quiz_blueprint.route('/result')
@@ -191,13 +200,13 @@ def result():
             "total": total,
             "answers": answers
         })
-    return render_template('quiz_result.html', score=score, total=total, name=name)
+    return render_template('quiz_result.html', score=score, total=total, title="Quiz Resultaat")
 
 @quiz_blueprint.route('/leaderboard')
 def leaderboard():
     results = list(quiz_results.find({}, {'_id': 0, 'name': 1, 'score': 1, 'total': 1}))
     results.sort(key=lambda r: r.get('score', 0), reverse=True)
-    return render_template('quiz_leaderboard.html', results=results)
+    return render_template('quiz_leaderboard.html', results=results, title="Quiz Ranglijst")
 
 @quiz_blueprint.route('/leaderboard/edit', methods=['GET', 'POST'])
 def leaderboard_edit_auth():
@@ -207,7 +216,7 @@ def leaderboard_edit_auth():
             session['edit_mode'] = True
             return redirect(url_for('quiz.leaderboard_edit'))
         return render_template('quiz_leaderboard_auth.html', error='Wachtwoord onjuist!')
-    return render_template('quiz_leaderboard_auth.html', error=None)
+    return render_template('quiz_leaderboard_auth.html', error=None, title="Bewerk Ranglijst Toegang")
 
 @quiz_blueprint.route('/leaderboard/edit/manage', methods=['GET', 'POST'])
 def leaderboard_edit():
@@ -218,4 +227,4 @@ def leaderboard_edit():
         if delete_id:
             quiz_results.delete_one({'_id': ObjectId(delete_id)})
     results = list(quiz_results.find({}, {'name': 1, 'score': 1, 'total': 1}))
-    return render_template('quiz_leaderboard_edit.html', results=results)
+    return render_template('quiz_leaderboard_edit.html', results=results, title="Bewerk Ranglijst")
