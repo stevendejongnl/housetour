@@ -23,14 +23,13 @@
             {% if result.answers %}
             <tr>
                 <td colspan="3">
-                        <ul style="font-size:0.95em;margin:0.5em 0 0 0;padding:0;list-style:none;">
-                        {% for answer in result.answers %}
-                            {% if answer.is_open and answer.selected %}
-                                <li><em>{{ answer.question }}</em>: <strong>{{ answer.selected }}</strong></li>
-                            {% endif %}
-                        {% endfor %}
-                        </ul>
-                    {% endif %}
+                    <ul style="font-size:0.95em;margin:0.5em 0 0 0;padding:0;list-style:none;">
+                    {% for answer in result.answers %}
+                        {% if answer.is_open and answer.selected %}
+                            <li><em>{{ answer.question }}</em>: <strong>{{ answer.selected }}</strong></li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
                 </td>
             </tr>
             {% endif %}
