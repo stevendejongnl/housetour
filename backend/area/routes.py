@@ -88,12 +88,17 @@ def get_area_content(area_name: str) -> str:
         return ''
 
 
+def is_exact_image(img: str, area_name: str) -> bool:
+        basename = img.split('-')[0] if '-' in img else img.split('.')[0]
+        return basename == area_name
+    
+
 def get_area_images(area_name: str) -> list[str]:
     static_dir = os.path.join(current_app.static_folder, 'areas')
     return [
         f'/static/areas/{img}'
         for img in os.listdir(static_dir)
-        if img.startswith(area_name) and img.endswith(('.jpg', '.jpeg', '.png', '.gif'))
+        if is_exact_image(img, area_name) and img.endswith(('.jpg', '.jpeg', '.png', '.gif'))
     ]
 
 
@@ -112,10 +117,12 @@ def area_dynamic(area_name: str) -> str:
 
     current_app.logger.info(f"{meta=}, {content=}")
 
+    images = get_area_images(area_name)
     data = {
         'title': meta.get('title', area_name),
         'description': meta.get('description', ''),
         'markdown_content': content,
-        'images': get_area_images(area_name),
+        'images': images,
+        'images_count': len(images),
     }
     return render_template('area.html', **data)

@@ -5,7 +5,15 @@
     <div class="markdown-body">
         {{ markdown_content|safe }}
 
-        <h3>The befores..</h3>
+        {% if images_count > 0 %}
+            <h3>
+                {% if images_count == 1 %}
+                    The before..
+                {% else %}
+                    The befores..
+                {% endif %}
+            </h3>
+        {% endif %}
     </div>
     <ul class="image-grid">
     {% for image in images %}
