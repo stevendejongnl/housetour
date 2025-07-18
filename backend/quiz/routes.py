@@ -204,8 +204,12 @@ def result():
 
 @quiz_blueprint.route('/leaderboard')
 def leaderboard():
-    results = list(quiz_results.find({}, {'_id': 0, 'name': 1, 'score': 1, 'total': 1}))
+    results = list(quiz_results.find({}, {'_id': 0, 'name': 1, 'score': 1, 'total': 1, 'answers': 1}))
     results.sort(key=lambda r: r.get('score', 0), reverse=True)
+    open_questions = {q['question']: q.get('open', False) for q in QUIZ_QUESTIONS}
+    for result in results:
+        for answer in result.get('answers', []):
+            answer['is_open'] = open_questions.get(answer.get('question'), False)
     return render_template('quiz_leaderboard.html', results=results, title="Quiz Ranglijst")
 
 @quiz_blueprint.route('/leaderboard/edit', methods=['GET', 'POST'])
