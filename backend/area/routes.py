@@ -1,4 +1,5 @@
 import os
+import re
 
 import frontmatter
 import markdown
@@ -90,7 +91,8 @@ def get_area_content(area_name: str) -> str:
 
 def is_exact_image(img: str, area_name: str) -> bool:
     img_name = img.rsplit('.', 1)[0]
-    return img_name == area_name or img_name.startswith(area_name + '-')
+    base = re.sub(r'-\d+$', '', img_name)
+    return base == area_name
     
 
 def get_area_images(area_name: str) -> list[str]:
