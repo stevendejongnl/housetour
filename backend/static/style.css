@@ -72,6 +72,33 @@ a.markdown-body h1, .markdown-body h2, .markdown-body h3 {
     text-decoration: underline;
 }
 
+.simple-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd166 0%, #ef476f 100%);
+    color: #fff;
+    font-family: 'Baloo 2', Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(239, 71, 111, 0.13);
+    padding: 0.8rem 2rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+    margin: 0.5rem 0;
+    outline: none;
+    text-shadow: 1px 1px 0 #ef476f55;
+}
+
+.simple-button:hover,
+.simple-button:focus {
+    background: linear-gradient(135deg, #ef476f 0%, #ffd166 100%);
+    color: #ffd166;
+    box-shadow: 0 6px 24px rgba(239, 71, 111, 0.18);
+    transform: scale(1.05) rotate(-2deg);
+    text-shadow: 2px 2px 0 #ef476f99;
+}
+
 .notfound {
     text-align: center;
     margin: 0 auto;
