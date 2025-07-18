@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="area-content" style="max-width:700px;margin:0 auto;">
+    <h2>Quiz Ranglijst (Bewerk modus)</h2>
+    <form method="post">
+        <table style="width:100%;border-collapse:collapse;">
+            <thead>
+                <tr>
+                    <th style="text-align:left;padding:8px;">Naam</th>
+                    <th style="text-align:right;padding:8px;">Score</th>
+                    <th style="text-align:right;padding:8px;">Totaal</th>
+                    <th style="text-align:center;padding:8px;">Verwijderen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td style="padding:8px;">{{ result.name }}</td>
+                    <td style="text-align:right;padding:8px;">{{ result.score }}</td>
+                    <td style="text-align:right;padding:8px;">{{ result.total }}</td>
+                    <td style="text-align:center;padding:8px;">
+                        <button type="submit" name="delete_id" value="{{ result._id }}" style="color:red;">Verwijder</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <a href="{{ url_for('quiz.leaderboard') }}" class="notfound-link" style="margin-top:2rem;">Terug naar ranglijst</a>
+</div>
+{% endblock %}

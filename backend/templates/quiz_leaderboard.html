@@ -2,6 +2,7 @@
 {% block body %}
 <div class="area-content" style="max-width:700px;margin:0 auto;">
     <h2>Quiz Ranglijst</h2>
+    <a href="{{ url_for('quiz.leaderboard_edit_auth') }}" class="notfound-link" style="float:right;margin-bottom:1rem;">Bewerk ranglijst</a>
     <table style="width:100%;border-collapse:collapse;">
         <thead>
             <tr>
@@ -13,9 +14,20 @@
         <tbody>
             {% for result in results %}
             <tr>
-                <td style="padding:8px;">{{ result.name }}</td>
-                <td style="text-align:right;padding:8px;">{{ result.score }}</td>
-                <td style="text-align:right;padding:8px;">{{ result.total }}</td>
+                <td style="padding:8px;vertical-align:top;">
+                    {{ result.name }}
+                    {% if result.answers %}
+                        <ul style="font-size:0.95em;margin:0.5em 0 0 0;padding:0;list-style:none;">
+                        {% for answer in result.answers %}
+                            {% if not answer.choices and answer.selected %}
+                                <li><em>{{ answer.question }}</em>: <strong>{{ answer.selected }}</strong></li>
+                            {% endif %}
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
+                <td style="text-align:right;padding:8px;vertical-align:top;">{{ result.score }}</td>
+                <td style="text-align:right;padding:8px;vertical-align:top;">{{ result.total }}</td>
             </tr>
             {% endfor %}
         </tbody>

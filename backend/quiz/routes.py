@@ -1,7 +1,9 @@
 import random
 import os
+
 from flask import Blueprint, render_template, session, redirect, url_for, request, current_app
 from pymongo import MongoClient
+from bson import ObjectId
 
 quiz_blueprint = Blueprint('quiz', __name__, template_folder='../templates', url_prefix='/quiz')
 
@@ -177,3 +179,24 @@ def leaderboard():
     results = list(quiz_results.find({}, {'_id': 0, 'name': 1, 'score': 1, 'total': 1}))
     results.sort(key=lambda r: r.get('score', 0), reverse=True)
     return render_template('quiz_leaderboard.html', results=results)
+
+@quiz_blueprint.route('/leaderboard/edit', methods=['GET', 'POST'])
+def leaderboard_edit_auth():
+    if request.method == 'POST':
+        password = request.form.get('password', '')
+        if password == '13636':
+            session['edit_mode'] = True
+            return redirect(url_for('quiz.leaderboard_edit'))
+        return render_template('quiz_leaderboard_auth.html', error='Wachtwoord onjuist!')
+    return render_template('quiz_leaderboard_auth.html', error=None)
+
+@quiz_blueprint.route('/leaderboard/edit/manage', methods=['GET', 'POST'])
+def leaderboard_edit():
+    if not session.get('edit_mode'):
+        return redirect(url_for('quiz.leaderboard_edit_auth'))
+    if request.method == 'POST':
+        delete_id = request.form.get('delete_id')
+        if delete_id:
+            quiz_results.delete_one({'_id': ObjectId(delete_id)})
+    results = list(quiz_results.find({}, {'name': 1, 'score': 1, 'total': 1}))
+    return render_template('quiz_leaderboard_edit.html', results=results)

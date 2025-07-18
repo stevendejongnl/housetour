@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="area-content" style="max-width:400px;margin:0 auto;">
+    <h2>Leaderboard bewerkmodus</h2>
+    <form method="post">
+        <label for="password">Wachtwoord:</label><br>
+        <input type="number" id="password" name="password" required style="width:100%;margin-bottom:1rem;">
+        {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+        <button type="submit" class="notfound-link">Inloggen</button>
+    </form>
+    <a href="{{ url_for('quiz.leaderboard') }}" class="notfound-link" style="margin-top:2rem;">Terug naar ranglijst</a>
+</div>
+{% endblock %}
