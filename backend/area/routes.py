@@ -2,7 +2,7 @@ import os
 
 import frontmatter
 import markdown
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template, current_app, redirect, url_for
 
 area_blueprint = Blueprint('area', __name__, template_folder='templates', url_prefix='/area')
 
@@ -11,6 +11,10 @@ AREAS_DIR = os.path.join(
     'data',
     'areas',
 )
+
+
+def normalize(s):
+    return s.replace('-', '').replace('_', '').lower()
 
 
 def get_available_areas() -> list[str]:
@@ -95,7 +99,12 @@ def get_area_images(area_name: str) -> list[str]:
 
 @area_blueprint.route('/<area_name>')
 def area_dynamic(area_name: str) -> str:
-    if area_name not in get_available_areas():
+    available_areas = get_available_areas()
+    if area_name not in available_areas:
+        normalized_input = normalize(area_name)
+        matches = [a for a in available_areas if normalize(a) == normalized_input]
+        if len(matches) == 1:
+            return redirect(url_for('area.area_dynamic', area_name=matches[0]))
         return render_template('404.html'), 404
 
     meta = get_area_metadata(area_name)
